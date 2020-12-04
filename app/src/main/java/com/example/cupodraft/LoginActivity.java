@@ -18,4 +18,12 @@ public class LoginActivity extends AppCompatActivity {
         Intent i = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(i);
     }
+
+    public void handleReg(View view) {
+        Intent i = new Intent(LoginActivity.this, RegActivity.class);
+        startActivity(i);
+    }
+
+    public void handleLupa(View view) {
+    }
 }

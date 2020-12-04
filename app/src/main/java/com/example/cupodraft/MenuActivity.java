@@ -18,4 +18,9 @@ public class MenuActivity extends AppCompatActivity {
         Intent i = new Intent(MenuActivity.this, ScanActivity.class);
         startActivity(i);
     }
+
+    public void handleScanBack(View view) {
+        Intent i = new Intent(MenuActivity.this, ScanActivity.class);
+        startActivity(i);
+    }
 }
