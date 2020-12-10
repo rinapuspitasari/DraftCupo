@@ -40,7 +40,7 @@ public class ScanActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        String message = "result :\n" + result.getText();
+                        String message = "Produk :\n" + result.getText();
                         showAlertDialog(message);
                     }
                 });

@@ -9,11 +9,12 @@
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/ic_btn1"
         android:onClick="handleScan"
         android:text="Pinjam Tumbler"
+        android:textSize="18dp"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,12 +22,13 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/ic_btn1"
+        android:onClick="handleScanBack"
         android:text="Kembalikan Tumbler"
         android:textColor="#FFFFFF"
-        android:onClick="handleScanBack"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
