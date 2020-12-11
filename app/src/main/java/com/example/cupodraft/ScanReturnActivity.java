@@ -1,4 +1,5 @@
 package com.example.cupodraft;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +21,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-public class ScanActivity extends AppCompatActivity {
+public class ScanReturnActivity extends AppCompatActivity {
     private ImageView ivBgContent;
     private CodeScanner mCodeScanner;
     private CodeScannerView scannerView;
@@ -28,7 +29,7 @@ public class ScanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
+        setContentView(R.layout.activity_scan_return);
         ivBgContent = findViewById(R.id.ivBgContent);
         scannerView = findViewById(R.id.scannerView);
 
@@ -75,7 +76,7 @@ public class ScanActivity extends AppCompatActivity {
 
     private void showAlertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialogTheme);
-        builder.setTitle("Apakah Anda ingin meminjam cup ini?");
+        builder.setTitle("Apakah Anda ingin mengembalikan cup ini?");
         builder.setIcon(R.drawable.ic_cup1);
 //        builder.setMessage(message);
         builder.setCancelable(true);
@@ -85,7 +86,7 @@ public class ScanActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                        startActivity(new Intent(ScanActivity.this, DetailPinjamActivity.class));
+                        startActivity(new Intent(ScanReturnActivity.this, DetailReturnActivity.class));
                         finish();
                     }
                 });
@@ -95,7 +96,7 @@ public class ScanActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                        startActivity(new Intent(ScanActivity.this, MenuActivity.class));
+                        startActivity(new Intent(ScanReturnActivity.this, MenuActivity.class));
                         finish();
                     }
                 });
