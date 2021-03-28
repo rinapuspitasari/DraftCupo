@@ -1,8 +1,10 @@
 package com.example.cupodraft;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -19,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 public class NavActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    String fullname, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +34,23 @@ public class NavActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_record, R.id.nav_panduan, R.id.nav_visi)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        /**
+         * Bundle extras = getIntent().getExtras();
+         *         if (extras != null) {
+         *             // TODO: display value here
+         *             System.out.println(fullname);
+         *             fullname = extras.getString("fullname");
+         *             Log.e("keshav", "fullname --> " + fullname);
+         *             Toast.makeText(NavActivity.this, fullname+" Berhasil Login", Toast.LENGTH_SHORT).show();
+         *         }
+         */
+
     }
 
     @Override

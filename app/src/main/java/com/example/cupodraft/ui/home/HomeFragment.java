@@ -1,22 +1,23 @@
 package com.example.cupodraft.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.cupodraft.HomeActivity;
+import com.example.cupodraft.LoginActivity;
 import com.example.cupodraft.MapsActivity;
 import com.example.cupodraft.MenuActivity;
+import com.example.cupodraft.NavActivity;
 import com.example.cupodraft.R;
 
 public class HomeFragment extends Fragment {
@@ -24,6 +25,10 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        SharedPreferences preferences = getContext().getSharedPreferences("data_login", Context.MODE_PRIVATE);
+        String id_customer = preferences.getString("id_customer","");
+        Log.d("recyctest", "Test: "+id_customer);
+        Toast.makeText(getContext(), id_customer, Toast.LENGTH_SHORT).show();
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         tampilHome(view);
         return view;

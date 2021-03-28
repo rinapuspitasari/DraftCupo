@@ -4,14 +4,25 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.example.cupodraft.api.helper.ServiceGenerator;
+import com.example.cupodraft.api.model.LoginResponse;
+import com.example.cupodraft.api.model.ProdukModel;
+import com.example.cupodraft.api.model.RegisterResponse;
+import com.example.cupodraft.api.services.ApiInterface;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -20,10 +31,17 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ScanActivity extends AppCompatActivity {
     private ImageView ivBgContent;
     private CodeScanner mCodeScanner;
     private CodeScannerView scannerView;
+    String nama_produk, id_produk, id_mitra, id_customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +49,7 @@ public class ScanActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scan);
         ivBgContent = findViewById(R.id.ivBgContent);
         scannerView = findViewById(R.id.scannerView);
-
         ivBgContent.bringToFront();
-
         mCodeScanner = new CodeScanner(this, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
@@ -41,15 +57,126 @@ public class ScanActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-//                        String message = "Produk :\n" + result.getText();
-                        showAlertDialog();
+                        nama_produk = result.getText();
+                        getId(nama_produk);
+//                        showAlertDialog();
                     }
                 });
             }
         });
-
         checkCameraPermission();
+        SharedPreferences preferences = getSharedPreferences("data_login", Context.MODE_PRIVATE);
+        id_customer = preferences.getString("id_customer","");
+        Log.e("keshav", "id_user --> " +id_customer);
     }
+
+    private void getId(String nama_produk) {
+        ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
+        Call<ProdukModel> call = service.getId(nama_produk);
+        call.enqueue(new Callback<ProdukModel>() {
+            @Override
+            public void onResponse(Call<ProdukModel> call, Response<ProdukModel> response) {
+                id_produk = response.body().getData()[0].getId_produk();
+                if(response.isSuccessful()){
+                    String status = response.body().getData()[0].getStatus();
+                    Toast.makeText(ScanActivity.this, status, Toast.LENGTH_SHORT).show();
+                    if(response.body().getData()[0].getStatus().equals("1")) {
+                        Log.e("keshav", "id_produk --> " + response.body().getData()[0].getId_produk());
+                        Toast.makeText(ScanActivity.this, "berhasil get id produk", Toast.LENGTH_SHORT).show();
+                        inputAlertDialog();
+                    }
+                    else{
+                        Toast.makeText(ScanActivity.this, "produk ini telah dipinjam :)", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(ScanActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProdukModel> call, Throwable t) {
+                Toast.makeText(ScanActivity.this, "Gagal Koneksi", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void inputAlertDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialogTheme);
+        builder.setTitle("Masukkan Kode Mitra");
+        builder.setIcon(R.drawable.ic_cup1);
+        builder.setMessage("Kode Mitra hanya diketahui oleh pihak mitra cupo :)");
+        builder.setCancelable(true);
+
+        // Set an EditText view to get user input
+        final EditText input = new EditText(this);
+        builder.setView(input);
+
+        builder.setPositiveButton(
+                "YA",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        id_mitra = input.getText().toString();
+                        Log.e("keshav", "id_mitra --> " +id_mitra);
+                        dialog.cancel();
+//                        finish();
+                        showAlertDialog();
+                    }
+                });
+
+        builder.setNegativeButton(
+                "BATAL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        startActivity(new Intent(ScanActivity.this, MenuActivity.class));
+                        finish();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void saveCredentials() {
+        SharedPreferences handler = this.getSharedPreferences("data_pinjam", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = handler.edit();
+        editor.putString("id_cust", this.id_customer);
+        editor.putString("id_prod", this.id_produk);
+        editor.apply();
+    }
+
+    private void doPinjam() {
+        ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
+        Call<RegisterResponse> call = service.doPeminjaman(id_customer, id_produk, id_mitra);
+        call.enqueue(new Callback<RegisterResponse>() {
+            @Override
+            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                RegisterResponse registerResponse = response.body();
+                Log.e("keshav", "id_produk --> " +id_produk);
+                Log.e("keshav", "id_mitra --> " +id_mitra);
+                Log.e("keshav", "id_user --> " +id_customer);
+                Log.e("keshav", "pinjamResponse 1 --> " + registerResponse);
+                if(response.isSuccessful()){
+                    if(response.body().getStatus().equals("true")){
+                        Toast.makeText(ScanActivity.this, "berhasil melakukan transaksi peminjaman", Toast.LENGTH_SHORT).show();
+                        saveCredentials();
+                        startActivity(new Intent(ScanActivity.this, DetailPinjamActivity.class));
+                    } else{
+                        String eror = response.body().getMessage();
+                        Toast.makeText(ScanActivity.this, eror, Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(ScanActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                Toast.makeText(ScanActivity.this, "Gagal Koneksi", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void checkCameraPermission(){
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.CAMERA)
@@ -85,7 +212,7 @@ public class ScanActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                        startActivity(new Intent(ScanActivity.this, DetailPinjamActivity.class));
+                        doPinjam();
                         finish();
                     }
                 });
