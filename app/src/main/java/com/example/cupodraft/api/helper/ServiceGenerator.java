@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
-    private static final String BASE_URL = "https://rest-server-cupo.000webhostapp.com/";
+    private static final String BASE_URL = "https://server-cupo.xyz/";
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()

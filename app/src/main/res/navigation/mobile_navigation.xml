@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.cupodraft.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_peminjaman"
+        android:name="com.example.cupodraft.ui.fragment.PeminjamanFragment"
+        android:label="Record Peminjaman"
+        tools:layout="@layout/fragment_peminjaman" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.cupodraft.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_panduan"
+        android:name="com.example.cupodraft.ui.fragment.PanduanFragment"
+        android:label="Panduan"
+        tools:layout="@layout/fragment_panduan" />
 </navigation>

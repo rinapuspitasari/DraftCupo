@@ -1,8 +1,10 @@
 package com.example.cupodraft.api.services;
 
+import com.example.cupodraft.api.model.KembaliResponse;
 import com.example.cupodraft.api.model.LoginResponse;
 import com.example.cupodraft.api.model.PinjamResponse;
 import com.example.cupodraft.api.model.ProdukModel;
+import com.example.cupodraft.api.model.RecordResponse;
 import com.example.cupodraft.api.model.RegisterResponse;
 
 import retrofit2.Call;
@@ -11,6 +13,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
     @Headers("X-API-KEY: " + "apikey")
@@ -21,7 +24,7 @@ public interface ApiInterface {
     @Headers("X-API-KEY: " + "apikey")
     @FormUrlEncoded
     @POST("customer/register")
-    Call<RegisterResponse> doRegister(@Field("fullname") String fullname ,@Field("username") String username, @Field("email") String email, @Field("password") String password);
+    Call<RegisterResponse> doRegister(@Field("fullname") String fullname ,@Field("username") String username, @Field("email") String email, @Field("no_hp") String no_hp, @Field("password") String password);
 
     @Headers("X-API-KEY: " + "apikey")
     @FormUrlEncoded
@@ -37,5 +40,19 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("api/peminjaman/getDetail")
     Call<PinjamResponse> getPeminjaman(@Field("id_user") String id_user, @Field("id_produk") String id_produk);
+
+    @Headers("X-API-KEY: " + "apikey")
+    @FormUrlEncoded
+    @POST("api/pengembalian/getDetail")
+    Call<KembaliResponse> getPengembalian(@Field("id_user") String id_user, @Field("id_produk") String id_produk);
+
+    @Headers("X-API-KEY: " + "apikey")
+    @FormUrlEncoded
+    @POST("pengembalian/add")
+    Call<RegisterResponse> doPengembalian(@Field("id_user") String id_user, @Field("id_produk") String id_produk, @Field("id_mitra") String id_mitra, @Field("id_pinjam") String id_pinjam);
+
+    @Headers("X-API-KEY: " + "apikey")
+    @GET("peminjaman/getCust")
+    Call<RecordResponse> getPinjam(@Query("id_user")String custId);
 
 }

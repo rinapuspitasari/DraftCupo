@@ -1,10 +1,12 @@
 package com.example.cupodraft;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -17,6 +19,7 @@ import com.example.cupodraft.api.helper.ServiceGenerator;
 import com.example.cupodraft.api.model.CommonMethod;
 import com.example.cupodraft.api.model.LoginResponse;
 import com.example.cupodraft.api.services.ApiInterface;
+import com.example.cupodraft.api.services.SharedPref;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +27,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     EditText edtUser,edtPassword;
-    String username, password, id_customer, fullname, token;
+    String username, password, id_customer, fullname, token, email, limit;
     Button btnLogin;
 
     @Override
@@ -47,6 +50,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
     public boolean checkValidation() {
         username = edtUser.getText().toString();
         password = edtPassword.getText().toString();
@@ -72,6 +81,8 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("id_customer", this.id_customer);
         editor.putString("nama_customer", this.fullname);
         editor.putString("token", this.token);
+        editor.putString("email", this.email);
+        editor.putString("limit", this.limit);
         editor.apply();
     }
 
@@ -95,6 +106,8 @@ public class LoginActivity extends AppCompatActivity {
                     id_customer = response.body().getData().getId_cust();
                     fullname = response.body().getData().getFull_name();
                     token = response.body().getData().getToken();
+                    email = response.body().getData().getEmail();
+                    limit = response.body().getData().getLimit_pinjam();
                     saveCredentials();
                     Log.e("keshav", "token --> " + response.body().getData().getToken());
                     Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();

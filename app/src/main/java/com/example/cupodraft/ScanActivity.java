@@ -13,12 +13,14 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.cupodraft.api.helper.ServiceGenerator;
+import com.example.cupodraft.api.model.CommonMethod;
 import com.example.cupodraft.api.model.LoginResponse;
 import com.example.cupodraft.api.model.ProdukModel;
 import com.example.cupodraft.api.model.RegisterResponse;
@@ -78,6 +80,11 @@ public class ScanActivity extends AppCompatActivity {
             public void onResponse(Call<ProdukModel> call, Response<ProdukModel> response) {
                 id_produk = response.body().getData()[0].getId_produk();
                 if(response.isSuccessful()){
+//                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ScanActivity.this);
+//                    SharedPreferences.Editor editor = preferences.edit();
+//                    editor.putString("id_produk", response.body().getData()[0].getId_produk());
+//                    editor.apply();
+
                     String status = response.body().getData()[0].getStatus();
                     Toast.makeText(ScanActivity.this, status, Toast.LENGTH_SHORT).show();
                     if(response.body().getData()[0].getStatus().equals("1")) {
@@ -108,9 +115,14 @@ public class ScanActivity extends AppCompatActivity {
         builder.setCancelable(true);
 
         // Set an EditText view to get user input
-        final EditText input = new EditText(this);
+        final EditText input = new EditText(ScanActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.TEXT_ALIGNMENT_TEXT_START
+        );
+        input.setLayoutParams(lp);
         builder.setView(input);
-
         builder.setPositiveButton(
                 "YA",
                 new DialogInterface.OnClickListener() {
@@ -118,8 +130,12 @@ public class ScanActivity extends AppCompatActivity {
                         id_mitra = input.getText().toString();
                         Log.e("keshav", "id_mitra --> " +id_mitra);
                         dialog.cancel();
+                        if (input.getText().toString().trim().equals("")) {
+                            CommonMethod.showAlert("MitraID Cannot be left blank", ScanActivity.this);
+                        } else{
+                            showAlertDialog();
+                        }
 //                        finish();
-                        showAlertDialog();
                     }
                 });
 
@@ -137,14 +153,6 @@ public class ScanActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void saveCredentials() {
-        SharedPreferences handler = this.getSharedPreferences("data_pinjam", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = handler.edit();
-        editor.putString("id_cust", this.id_customer);
-        editor.putString("id_prod", this.id_produk);
-        editor.apply();
-    }
-
     private void doPinjam() {
         ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
         Call<RegisterResponse> call = service.doPeminjaman(id_customer, id_produk, id_mitra);
@@ -159,8 +167,11 @@ public class ScanActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     if(response.body().getStatus().equals("true")){
                         Toast.makeText(ScanActivity.this, "berhasil melakukan transaksi peminjaman", Toast.LENGTH_SHORT).show();
-                        saveCredentials();
-                        startActivity(new Intent(ScanActivity.this, DetailPinjamActivity.class));
+//                        saveCredentials();
+                        Intent intent = new Intent(ScanActivity.this, DetailPinjamActivity.class);
+                        intent.putExtra("id_produk", id_produk);
+                        startActivity(intent);
+//                        startActivity(new Intent(ScanActivity.this, DetailPinjamActivity.class));
                     } else{
                         String eror = response.body().getMessage();
                         Toast.makeText(ScanActivity.this, eror, Toast.LENGTH_SHORT).show();

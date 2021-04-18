@@ -9,7 +9,7 @@
             android:icon="@drawable/ic_home_black_18dp"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_record"
+            android:id="@+id/nav_peminjaman"
             android:icon="@drawable/ic_favorite_border_black_18dp"
             android:title="Peminjaman Cup Saya" />
         <item
@@ -17,8 +17,8 @@
             android:icon="@drawable/ic_help_black_18dp"
             android:title="Panduan" />
         <item
-            android:id="@+id/nav_visi"
-            android:icon="@drawable/ic_favorite_border_black_18dp"
-            android:title="Visi dan Misi kami" />
+            android:id="@+id/nav_logout"
+            android:icon="@android:drawable/ic_lock_power_off"
+            android:title="Logout" />
     </group>
 </menu>

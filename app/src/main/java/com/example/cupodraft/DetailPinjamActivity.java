@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cupodraft.api.helper.ServiceGenerator;
@@ -21,18 +23,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailPinjamActivity extends AppCompatActivity {
-
+    TextView idPinjam, tglPinjam, tglKembali;
     String id_customer, id_produk, id_pinjam;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pinjam);
-        SharedPreferences preferences = getSharedPreferences("data_pinjam", Context.MODE_PRIVATE);
-        id_customer = preferences.getString("id_cust","");
-        id_produk = preferences.getString("id_prod","");
+        idPinjam = findViewById(R.id.inputId);
+        tglPinjam = findViewById(R.id.inputTgl);
+        tglKembali = findViewById(R.id.inputKembali);
+        SharedPreferences preferences = getSharedPreferences("data_login", Context.MODE_PRIVATE);
+        id_customer = preferences.getString("id_customer","");
+//        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+//        id_produk = pref.getString("id_produk","");
+        id_produk = getIntent().getStringExtra("id_produk");
         Log.d("recyctest", "Test customer: "+id_customer);
         Log.d("recyctest", "Test produk: "+id_produk);
-//        getPinjam();
+        getPinjam();
     }
 
     private void getPinjam() {
@@ -43,8 +50,19 @@ public class DetailPinjamActivity extends AppCompatActivity {
             public void onResponse(Call<PinjamResponse> call, Response<PinjamResponse> response) {
                 id_pinjam = response.body().getData()[0].getId_pinjam();
                 Log.e("keshav", "pinjamResponse 1 --> " + id_pinjam);
+//                SharedPreferences preferences = getApplicationContext().getSharedPreferences("peminjaman", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = preferences.edit();
+//                editor.putString("id_produk", response.body().getData()[0].getId_produk());
+//                editor.putString("id_customer", response.body().getData()[0].getId_user());
+//                editor.putString("id_pinjam", response.body().getData()[0].getId_pinjam());
+//                editor.apply();
+
                 if(response.isSuccessful()){
+                    String tanggalPinjam = response.body().getData()[0].getTanggal_pinjam();
                     String tanggal = response.body().getData()[0].getTanggal_haruskembali();
+                    tglPinjam.setText(tanggalPinjam);
+                    tglKembali.setText(tanggal);
+                    idPinjam.setText(id_pinjam);
                     Toast.makeText(DetailPinjamActivity.this, "Silahkan dikembalikan sebelum tanggal "+tanggal+ " yaa :)", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(DetailPinjamActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
@@ -61,5 +79,11 @@ public class DetailPinjamActivity extends AppCompatActivity {
     public void handleHome(View view) {
         startActivity(new Intent(DetailPinjamActivity.this, NavActivity.class));
         finish();
+    }
+
+    public void handleKembali(View view) {
+        Intent intent = new Intent(DetailPinjamActivity.this, ScanReturnActivity.class);
+//        intent.putExtra("id_pinjam", id_pinjam);
+        startActivity(intent);
     }
 }

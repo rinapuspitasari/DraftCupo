@@ -20,10 +20,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegActivity extends AppCompatActivity {
-    EditText namaInput, usernameInput, emailInput, passwordInput, conPassInput;
+    EditText namaInput, usernameInput, emailInput, passwordInput, conPassInput, hpInput;
     Button btnRegister;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    String fullname, username, email, password, conPass;
+    String fullname, username, email, no_hp, password, conPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class RegActivity extends AppCompatActivity {
         namaInput = findViewById(R.id.text_fullname);
         usernameInput = findViewById(R.id.text_username);
         emailInput = findViewById(R.id.text_email);
+        hpInput = findViewById(R.id.text_hp);
         passwordInput = findViewById(R.id.text_password);
         conPassInput = findViewById(R.id.text_confirm_password);
         btnRegister = findViewById(R.id.button_ok);
@@ -41,7 +42,7 @@ public class RegActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (checkValidation()) {
                     if (CommonMethod.isNetworkAvailable(RegActivity.this))
-                        doRegister(fullname, username, email, password);
+                        doRegister(fullname, username, email, no_hp, password);
                     else
                         CommonMethod.showAlert("Internet Connectivity Failure", RegActivity.this);
                 }
@@ -53,12 +54,14 @@ public class RegActivity extends AppCompatActivity {
         fullname = namaInput.getText().toString();
         username = usernameInput.getText().toString();
         email = emailInput.getText().toString();
+        no_hp = hpInput.getText().toString();
         password = passwordInput.getText().toString();
         conPass = conPassInput.getText().toString();
 
         Log.e("Keshav", "fullname is -> " + fullname);
         Log.e("Keshav", "username is -> " + username);
         Log.e("Keshav", "email is -> " + email);
+        Log.e("Keshav", "no hp is -> " + no_hp);
         Log.e("Keshav", "password is -> " + password);
         Log.e("Keshav", "password 2 is -> " + conPass);
 
@@ -74,6 +77,9 @@ public class RegActivity extends AppCompatActivity {
         } else if(!email.matches(emailPattern)) {
             emailInput.setError("email harus valid");
             return false;
+        } else if(no_hp.isEmpty()){
+        hpInput.setError("no hp tidak boleh kosong");
+        return false;
         } else if(password.isEmpty()){
             passwordInput.setError("password tidak boleh kosong");
             return false;
@@ -85,9 +91,9 @@ public class RegActivity extends AppCompatActivity {
     }
 
 
-    public void doRegister(String fullname, String username, String email, String password){
+    public void doRegister(String fullname, String username, String email, String no_hp, String password){
         ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
-        Call<RegisterResponse> call = service.doRegister(fullname, username, email, password);
+        Call<RegisterResponse> call = service.doRegister(fullname, username, email, no_hp, password);
         call.enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
