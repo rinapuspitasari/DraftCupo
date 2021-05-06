@@ -4,24 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.EProfileActivity">
+    tools:context=".ui.ProfileActivity">
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/border_without_radius"
+        android:onClick="changePass"
+        android:text="@string/ubah_passsword"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/button4" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/border_without_radius"
+        android:text="@string/logout"
+        android:onClick="logoutUser"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toBottomOf="@id/button5" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_btn1"
-        android:text="@string/simpan"
+        android:background="@drawable/border_without_radius"
         android:onClick="updateProfile"
-        android:textColor="#FFFFFF"
+        android:text="@string/ubah_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/edtHp" />
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
-    <EditText
-        android:id="@+id/edtFullname"
+    <TextView
+        android:id="@+id/txtFullname"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_marginTop="5dp"
@@ -32,8 +58,8 @@
         app:layout_constraintStart_toStartOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <EditText
-        android:id="@+id/edtEmail"
+    <TextView
+        android:id="@+id/txtEmail"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_marginTop="5dp"
@@ -44,8 +70,8 @@
         app:layout_constraintStart_toStartOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/textView5" />
 
-    <EditText
-        android:id="@+id/edtHp"
+    <TextView
+        android:id="@+id/txtHp"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_marginTop="5dp"
@@ -56,8 +82,8 @@
         app:layout_constraintStart_toStartOf="@id/guideline2"
         app:layout_constraintTop_toBottomOf="@id/textView1" />
 
-    <EditText
-        android:id="@+id/edtUser"
+    <TextView
+        android:id="@+id/txtUser"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_marginTop="5dp"
@@ -84,7 +110,7 @@
         android:layout_marginTop="10dp"
         android:text="Username"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/edtFullname" />
+        app:layout_constraintTop_toBottomOf="@+id/txtFullname" />
 
     <TextView
         android:id="@+id/textView5"
@@ -93,7 +119,7 @@
         android:layout_marginTop="10dp"
         android:text="Email"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/edtUser" />
+        app:layout_constraintTop_toBottomOf="@id/txtUser" />
 
     <TextView
         android:id="@+id/textView1"
@@ -102,7 +128,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/no_hp"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@id/edtEmail" />
+        app:layout_constraintTop_toBottomOf="@id/txtEmail" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -156,6 +182,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.72" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

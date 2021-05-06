@@ -20,6 +20,8 @@ import com.example.cupodraft.api.model.CommonMethod;
 import com.example.cupodraft.api.model.LoginResponse;
 import com.example.cupodraft.api.services.ApiInterface;
 import com.example.cupodraft.api.services.SharedPref;
+import com.example.cupodraft.ui.EProfileActivity;
+import com.example.cupodraft.ui.LupaPassActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,7 +29,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     EditText edtUser,edtPassword;
-    String username, password, id_customer, fullname, token, email, limit;
+    String username, password, id_customer, fullname, token, email, limit, no_hp;
     Button btnLogin;
 
     @Override
@@ -49,6 +51,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+//        SharedPreferences handler = getSharedPreferences("data_login", Context.MODE_PRIVATE);
+//        if(handler.getBoolean("data_login", true)) {
+//            startActivity(new Intent(LoginActivity.this, MainActivity.class)
+//                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+//            finish();
+//        }
     }
 
     @Override
@@ -83,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("token", this.token);
         editor.putString("email", this.email);
         editor.putString("limit", this.limit);
+        editor.putString("no_hp", this.no_hp);
         editor.apply();
     }
 
@@ -95,24 +105,18 @@ public class LoginActivity extends AppCompatActivity {
                 LoginResponse loginResponse = response.body();
                 Log.e("keshav", "loginResponse 1 --> " + loginResponse);
                 if(response.isSuccessful()){
-                    /**
-                    SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = preference.edit();
-                    editor.putString("token",response.body().getData().getToken());
-                    editor.putString("fullname",response.body().getData().getFull_name());
-                    editor.putString("email",response.body().getData().getFull_name());
-                    editor.apply();
-                     **/
                     id_customer = response.body().getData().getId_cust();
                     fullname = response.body().getData().getFull_name();
                     token = response.body().getData().getToken();
                     email = response.body().getData().getEmail();
                     limit = response.body().getData().getLimit_pinjam();
+                    no_hp = response.body().getData().getNo_hp();
                     saveCredentials();
                     Log.e("keshav", "token --> " + response.body().getData().getToken());
                     Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), NavActivity.class);
                     startActivity(i);
+                    finish();
                 }else{
                     Toast.makeText(LoginActivity.this, "Username atau kata sandi salah!", Toast.LENGTH_SHORT).show();
                 }
@@ -131,5 +135,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void handleLupa(View view) {
+        Intent i = new Intent(LoginActivity.this, LupaPassActivity.class);
+        startActivity(i);
     }
 }

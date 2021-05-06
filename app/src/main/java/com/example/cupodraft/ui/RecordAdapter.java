@@ -16,6 +16,10 @@ import com.example.cupodraft.R;
 import com.example.cupodraft.ScanReturnActivity;
 import com.example.cupodraft.api.model.RecordResponse;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ListViewHolder>{
     private RecordResponse itemResponse;
     private Context context;
@@ -35,7 +39,16 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ListViewHo
     @Override
     public void onBindViewHolder(@NonNull RecordAdapter.ListViewHolder holder, int position) {
         holder.tvName.setText(itemResponse.getData()[position].getId_pinjam());
-        holder.tvTgl.setText(itemResponse.getData()[position].getTanggal_pinjam());
+        String tglLama = itemResponse.getData()[position].getTanggal_pinjam();
+        String tglBaru = "";
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            tglBaru=dateFormat.format(df.parse(tglLama));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        holder.tvTgl.setText(tglBaru);
         holder.tvStatus.setText(itemResponse.getData()[position].getStatus());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -9,18 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.EProfileActivity"></activity>
-        <activity android:name=".DetailReturnActivity"
-            android:parentActivityName=".NavActivity"/>
-        <activity android:name=".ScanReturnActivity"
-            android:parentActivityName=".NavActivity"/>
-        <activity android:name=".DetailPinjamActivity"
-            android:parentActivityName=".NavActivity"/>
+        <activity android:name=".ui.PanduanActivity"></activity>
+        <activity android:name=".ui.ProfileActivity" />
+        <activity android:name=".ui.LupaPassActivity" />
+        <activity android:name=".ui.EPassActivity" />
+        <activity android:name=".ui.EProfileActivity" />
+        <activity
+            android:name=".DetailReturnActivity"
+            android:parentActivityName=".NavActivity" />
+        <activity
+            android:name=".ScanReturnActivity"
+            android:parentActivityName=".NavActivity" />
+        <activity
+            android:name=".DetailPinjamActivity"
+            android:parentActivityName=".NavActivity" />
         <activity android:name=".RegActivity" />
         <activity
             android:name=".NavActivity"
-            android:launchMode="singleTop"
             android:label="@string/title_activity_nav"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MenuActivity" />
         <!--
@@ -34,11 +41,9 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".ScanActivity"
-            android:parentActivityName=".NavActivity"/>
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".NavActivity" />
+        <activity
+            android:name=".ScanActivity"
+            android:parentActivityName=".NavActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -49,16 +54,19 @@
         </activity>
 
         <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".NavActivity" />
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.google.android.apps.photos" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-permission android:name="com.google.android.apps.photos" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

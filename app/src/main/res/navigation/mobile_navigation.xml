@@ -17,9 +17,15 @@
         android:label="Record Peminjaman"
         tools:layout="@layout/fragment_peminjaman" />
 
-    <fragment
+    <activity
         android:id="@+id/nav_panduan"
-        android:name="com.example.cupodraft.ui.fragment.PanduanFragment"
+        android:name="com.example.cupodraft.ui.PanduanActivity"
         android:label="Panduan"
-        tools:layout="@layout/fragment_panduan" />
+        tools:layout="@layout/activity_panduan" />
+
+    <activity
+        android:id="@+id/nav_edit"
+        android:name="com.example.cupodraft.ui.ProfileActivity"
+        android:label="My Account"
+        tools:layout="@layout/activity_profile" />
 </navigation>

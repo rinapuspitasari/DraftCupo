@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -35,7 +37,6 @@ public class NavActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     TextView txProfile, txEmail;
     CircleImageView profileCircleImageView;
-    TextView iEdit;
     String profileImage = "https://rest-server-cupo.000webhostapp.com/assets/images/profile/default.jpg";
 
     @Override
@@ -49,14 +50,13 @@ public class NavActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_peminjaman, R.id.nav_panduan, R.id.nav_logout)
+                R.id.nav_home, R.id.nav_peminjaman, R.id.nav_panduan, R.id.nav_edit)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         profileCircleImageView = navigationView.getHeaderView(0).findViewById(R.id.imageView);
-        iEdit = navigationView.getHeaderView(0).findViewById(R.id.txtEdit);
         Glide.with(NavActivity.this)
                 .load(profileImage)
                 .into(profileCircleImageView);
@@ -67,13 +67,6 @@ public class NavActivity extends AppCompatActivity {
         String email = preferences.getString("email", "");
         txProfile.setText(nama_customer);
         txEmail.setText(email);
-        iEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), EProfileActivity.class);
-                startActivity(i);
-            }
-        });
     }
 
     @Override
@@ -86,6 +79,15 @@ public class NavActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_change_settings) {
+            Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(mIntent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

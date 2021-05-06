@@ -15,13 +15,20 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.cupodraft.api.helper.ServiceGenerator;
+import com.example.cupodraft.api.model.LokasiResponse;
+import com.example.cupodraft.api.model.RegisterResponse;
+import com.example.cupodraft.api.services.ApiInterface;
+import com.example.cupodraft.ui.RecordAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.karumi.dexter.Dexter;
@@ -30,6 +37,10 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -135,8 +146,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                            "Lat : " + location.getLatitude() + " Long : " + location.getLongitude(),
 //                            Toast.LENGTH_LONG).show();
                     LatLng terkini = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(terkini).title("Marker in Your Location"));
+//                    mMap.addMarker(new MarkerOptions().position(terkini).title("Marker in Your Location"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(terkini));
+                    getLokasi();
                 }
             }
         });
@@ -155,5 +167,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         mMap.setMyLocationEnabled(true);
+    }
+
+    protected Marker createMarker(double latitude, double longitude, String title) {
+
+        return mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(latitude, longitude))
+                .anchor(0.5f, 0.5f)
+                .title(title));
+    }
+
+    public void getLokasi(){
+        ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
+        Call<LokasiResponse> call = service.getLokasi();
+        call.enqueue(new Callback<LokasiResponse>() {
+            @Override
+            public void onResponse(Call<LokasiResponse> call, Response<LokasiResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(MapsActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
+                    for(int i=0 ; i< response.body().getData().length; i++){
+                        float latitude = Float.parseFloat(response.body().getData()[i].getLatitude());
+                        float longitude = Float.parseFloat(response.body().getData()[i].getLongitude());
+                        String nama_mitra = response.body().getData()[i].getFullname();
+                        createMarker(latitude, longitude, nama_mitra);
+                    }
+                } else {
+                    Toast.makeText(MapsActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LokasiResponse> call, Throwable t) {
+                Toast.makeText(MapsActivity.this, "Gagal Koneksi Ke Server", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -13,6 +13,8 @@ public class Data
 
     private String token;
 
+    private String no_hp;
+
     public String getFull_name ()
     {
         return full_name;
@@ -71,6 +73,16 @@ public class Data
     public void setToken (String token)
     {
         this.token = token;
+    }
+
+    public String getNo_hp ()
+    {
+        return no_hp;
+    }
+
+    public void setNo_hp (String no_hp)
+    {
+        this.no_hp = no_hp;
     }
 
     @Override

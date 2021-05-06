@@ -17,6 +17,16 @@ public class DataPinjam {
 
     private String tanggal_haruskembali;
 
+    private String is_acc;
+
+    public String getIs_acc() {
+        return is_acc;
+    }
+
+    public void setIs_acc(String is_acc) {
+        this.is_acc = is_acc;
+    }
+
     public String getId_produk ()
     {
         return id_produk;
@@ -100,6 +110,6 @@ public class DataPinjam {
     @Override
     public String toString()
     {
-        return "ClassPojo [id_produk = "+id_produk+", nama_produk = "+nama_produk+", id_pinjam = "+id_pinjam+", tanggal_pinjam = "+tanggal_pinjam+", id_user = "+id_user+", id_mitra = "+id_mitra+", fullname = "+fullname+", tanggal_haruskembali = "+tanggal_haruskembali+"]";
+        return "ClassPojo [id_produk = "+id_produk+", nama_produk = "+nama_produk+", id_pinjam = "+id_pinjam+", tanggal_pinjam = "+tanggal_pinjam+", id_user = "+id_user+", id_mitra = "+id_mitra+", fullname = "+fullname+", tanggal_haruskembali = "+tanggal_haruskembali+", is_acc= "+is_acc+"]";
     }
 }

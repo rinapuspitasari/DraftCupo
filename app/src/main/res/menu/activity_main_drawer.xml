@@ -11,14 +11,14 @@
         <item
             android:id="@+id/nav_peminjaman"
             android:icon="@drawable/ic_favorite_border_black_18dp"
-            android:title="Peminjaman Cup Saya" />
+            android:title="@string/peminjaman_cup_saya" />
         <item
             android:id="@+id/nav_panduan"
             android:icon="@drawable/ic_help_black_18dp"
-            android:title="Panduan" />
+            android:title="@string/panduan" />
         <item
-            android:id="@+id/nav_logout"
-            android:icon="@android:drawable/ic_lock_power_off"
-            android:title="Logout" />
+            android:id="@+id/nav_edit"
+            android:icon="@drawable/ic_help_black_18dp"
+            android:title="@string/akun_saya" />
     </group>
 </menu>

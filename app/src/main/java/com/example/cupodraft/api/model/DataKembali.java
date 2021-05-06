@@ -19,6 +19,7 @@ public class DataKembali {
 
     private String status;
 
+
     public String getId_produk ()
     {
         return id_produk;
@@ -109,10 +110,20 @@ public class DataKembali {
         this.status = status;
     }
 
+    private String is_acc;
+
+    public String getIs_acc() {
+        return is_acc;
+    }
+
+    public void setIs_acc(String is_acc) {
+        this.is_acc = is_acc;
+    }
+
     @Override
     public String toString()
     {
-        return "ClassPojo [id_produk = "+id_produk+", id_pinjam = "+id_pinjam+", id_kembali = "+id_kembali+", tanggal_kembali = "+tanggal_kembali+", terlambat = "+terlambat+", denda = "+denda+", id_user = "+id_user+", id_mitra = "+id_mitra+", status = "+status+"]";
+        return "ClassPojo [id_produk = "+id_produk+", id_pinjam = "+id_pinjam+", id_kembali = "+id_kembali+", tanggal_kembali = "+tanggal_kembali+", terlambat = "+terlambat+", denda = "+denda+", id_user = "+id_user+", id_mitra = "+id_mitra+", status = "+status+" , is_acc= "+is_acc+"]";
     }
 
 }
