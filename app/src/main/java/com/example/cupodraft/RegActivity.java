@@ -66,25 +66,25 @@ public class RegActivity extends AppCompatActivity {
         Log.e("Keshav", "password 2 is -> " + conPass);
 
         if(fullname.isEmpty()){
-            namaInput.setError("nama tidak boleh kosong");
+            namaInput.setError(getString(R.string.nama_tidak_boleh));
             return false;
         } else if(username.isEmpty()){
-            usernameInput.setError("username tidak boleh kosong");
+            usernameInput.setError(getString(R.string.username_tidak));
             return false;
         } else if(email.isEmpty()){
-            emailInput.setError("email tidak boleh kosong");
+            emailInput.setError(getString(R.string.email_tidak_boleh));
             return false;
         } else if(!email.matches(emailPattern)) {
-            emailInput.setError("email harus valid");
+            emailInput.setError(getString(R.string.emai_harus));
             return false;
         } else if(no_hp.isEmpty()){
-        hpInput.setError("no hp tidak boleh kosong");
+        hpInput.setError(getString(R.string.no_hp_tidak));
         return false;
         } else if(password.isEmpty()){
-            passwordInput.setError("password tidak boleh kosong");
+            passwordInput.setError(getString(R.string.password_tidak));
             return false;
         } else if (!conPass.equals(password)){
-            conPassInput.setError("password harus sama");
+            conPassInput.setError(getString(R.string.password_harus_sama));
             return false;
         }
         return true;
@@ -100,19 +100,19 @@ public class RegActivity extends AppCompatActivity {
                 RegisterResponse registerResponse = response.body();
                 Log.e("keshav", "registerResponse 1 --> " + registerResponse);
                 if (response.isSuccessful()) {
-                    Toast.makeText(RegActivity.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegActivity.this, R.string.register_berhasil, Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(RegActivity.this, response.body().getStatus(), Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(RegActivity.this, response.body().getId(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegActivity.this, LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(RegActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                Toast.makeText(RegActivity.this, "Gagal Koneksi Ke Server", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
     }

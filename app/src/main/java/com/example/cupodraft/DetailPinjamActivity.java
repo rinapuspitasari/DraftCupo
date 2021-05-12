@@ -20,6 +20,7 @@ import com.example.cupodraft.api.model.PinjamResponse;
 import com.example.cupodraft.api.model.ProdukModel;
 import com.example.cupodraft.api.model.RegisterResponse;
 import com.example.cupodraft.api.services.ApiInterface;
+import com.example.cupodraft.ui.FailActivity;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -28,6 +29,8 @@ import java.text.SimpleDateFormat;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.cupodraft.R.string.gagal_koneksi;
 
 public class DetailPinjamActivity extends AppCompatActivity {
     TextView idPinjam, tglPinjam, tglKembali, txtWait;
@@ -79,7 +82,7 @@ public class DetailPinjamActivity extends AppCompatActivity {
                         tglPinjam.setText(tglBaru);
                         tglKembali.setText(tgl);
                         idPinjam.setText(id_pinjam);
-                        Toast.makeText(DetailPinjamActivity.this, "Silahkan dikembalikan sebelum tanggal "+tanggal+ " yaa :)", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(DetailPinjamActivity.this, "Silahkan dikembalikan sebelum tanggal "+tanggal+ " yaa :)", Toast.LENGTH_SHORT).show();
                     } else{
                         progressBar.setVisibility(View.VISIBLE);
                         constraintLayout.setVisibility(View.INVISIBLE);
@@ -89,13 +92,16 @@ public class DetailPinjamActivity extends AppCompatActivity {
 //                        Toast.makeText(DetailPinjamActivity.this, "Proses peminjaman sedang diproses", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(DetailPinjamActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailPinjamActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(), FailActivity.class);
+                    startActivity(i);
+                    finish();
                 }
             }
 
             @Override
             public void onFailure(Call<PinjamResponse> call, Throwable t) {
-                Toast.makeText(DetailPinjamActivity.this, "Gagal Koneksi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailPinjamActivity.this, gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
     }

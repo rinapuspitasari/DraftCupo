@@ -7,6 +7,44 @@
     tools:context=".ui.home.HomeFragment">
 
     <ImageView
+        android:id="@+id/btnMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/ic_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ic_group_697"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
+        app:layout_constraintTop_toTopOf="@+id/btnMenu" />
+
+    <ImageView
+        android:id="@+id/btnMaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMenu" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ic_page_1"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
+        app:layout_constraintTop_toTopOf="@+id/btnMaps" />
+
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
@@ -15,24 +53,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btnMenu"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/ic_btn_menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
 
-    <Button
-        android:id="@+id/btnMaps"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_btn_menu1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMenu" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/pinjam_atau"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="@+id/btnMenu"
+        app:layout_constraintTop_toTopOf="@+id/btnMenu" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/lihat_lokasi_mitra_cupo"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="@+id/btnMaps"
+        app:layout_constraintTop_toTopOf="@+id/btnMaps" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@ import com.example.cupodraft.api.helper.ServiceGenerator;
 import com.example.cupodraft.api.model.KembaliResponse;
 import com.example.cupodraft.api.model.PinjamResponse;
 import com.example.cupodraft.api.services.ApiInterface;
+import com.example.cupodraft.ui.FailActivity;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -86,8 +87,8 @@ public class DetailReturnActivity extends AppCompatActivity {
                             txtTerlambat.setVisibility(View.VISIBLE);
                             inDenda.setVisibility(View.VISIBLE);
                             inTerlambat.setVisibility(View.VISIBLE);
-                            txtStatus.setText("Terlambat");
-                            inTerlambat.setText(terlambat+" hari");
+                            txtStatus.setText(R.string.terlambat);
+                            inTerlambat.setText(terlambat+ getString(R.string.hari));
                             inDenda.setText("Rp. " + denda);
                         }
                         tglKembali.setText(tgl);
@@ -101,13 +102,16 @@ public class DetailReturnActivity extends AppCompatActivity {
                     }
 
                 }else{
-                    Toast.makeText(DetailReturnActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailReturnActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(), FailActivity.class);
+                    startActivity(i);
+                    finish();
                 }
             }
 
             @Override
             public void onFailure(Call<KembaliResponse> call, Throwable t) {
-                Toast.makeText(DetailReturnActivity.this, "Gagal Koneksi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailReturnActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -82,17 +82,17 @@ public class EProfileActivity extends AppCompatActivity {
                 RegisterResponse registerResponse = response.body();
                 Log.e("keshav", "registerResponse 1 --> " + registerResponse);
                 if (response.isSuccessful()) {
-                    Toast.makeText(EProfileActivity.this, "Update Profile Berhasil", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EProfileActivity.this, R.string.update_profile_berhasil, Toast.LENGTH_SHORT).show();
                     Intent myProfileIntent = new Intent(getApplicationContext(), ProfileActivity.class);
                     startActivity(myProfileIntent);
                 } else {
-                    Toast.makeText(EProfileActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EProfileActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                Toast.makeText(EProfileActivity.this, "Gagal Koneksi Ke Server", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EProfileActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
     }

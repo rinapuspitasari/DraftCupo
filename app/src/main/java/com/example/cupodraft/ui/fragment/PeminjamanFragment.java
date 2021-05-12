@@ -71,13 +71,13 @@ public class PeminjamanFragment extends Fragment {
                 }else{
                     progressBar.setVisibility(View.INVISIBLE);
                     notFound.setVisibility(View.VISIBLE);
-                    Toast.makeText(getContext(), "Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.gagal, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<RecordResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "Gagal Koneksi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
 

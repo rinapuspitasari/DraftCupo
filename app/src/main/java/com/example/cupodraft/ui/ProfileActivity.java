@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(ProfileActivity.this, "Get Data Profile Berhasil", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ProfileActivity.this, "Get Data Profile Berhasil", Toast.LENGTH_SHORT).show();
                     nama_customer = response.body().getData()[0].getFullname();
                     email = response.body().getData()[0].getEmail();
                     username = response.body().getData()[0].getUsername();
@@ -67,13 +67,13 @@ public class ProfileActivity extends AppCompatActivity {
                     tUser.setText(username);
                     tHp.setText(no_hp);
                 } else {
-                    Toast.makeText(ProfileActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Toast.makeText(ProfileActivity.this, "Gagal Koneksi Ke Server", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
     }

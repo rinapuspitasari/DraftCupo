@@ -113,18 +113,18 @@ public class LoginActivity extends AppCompatActivity {
                     no_hp = response.body().getData().getNo_hp();
                     saveCredentials();
                     Log.e("keshav", "token --> " + response.body().getData().getToken());
-                    Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.berhasil_login, Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), NavActivity.class);
                     startActivity(i);
                     finish();
                 }else{
-                    Toast.makeText(LoginActivity.this, "Username atau kata sandi salah!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.username_atau_, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Gagal Koneksi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
     }

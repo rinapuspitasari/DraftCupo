@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,7 +22,7 @@ import com.example.cupodraft.NavActivity;
 import com.example.cupodraft.R;
 
 public class HomeFragment extends Fragment {
-    Button btnMenu, btnMaps;
+    ImageView btnMenu, btnMaps;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

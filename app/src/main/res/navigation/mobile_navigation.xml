@@ -14,18 +14,18 @@
     <fragment
         android:id="@+id/nav_peminjaman"
         android:name="com.example.cupodraft.ui.fragment.PeminjamanFragment"
-        android:label="Record Peminjaman"
+        android:label="@string/record_transaksi"
         tools:layout="@layout/fragment_peminjaman" />
 
     <activity
         android:id="@+id/nav_panduan"
         android:name="com.example.cupodraft.ui.PanduanActivity"
-        android:label="Panduan"
+        android:label="@string/panduan"
         tools:layout="@layout/activity_panduan" />
 
     <activity
         android:id="@+id/nav_edit"
         android:name="com.example.cupodraft.ui.ProfileActivity"
-        android:label="My Account"
+        android:label="@string/akun_saya"
         tools:layout="@layout/activity_profile" />
 </navigation>

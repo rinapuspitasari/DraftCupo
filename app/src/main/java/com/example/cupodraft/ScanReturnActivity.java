@@ -90,25 +90,25 @@ public class ScanReturnActivity extends AppCompatActivity {
                 Log.e("keshav", "produkResponse 1 --> " + id_produk);
                 if(response.isSuccessful()){
                     Log.e("keshav", "id_produk --> " + response.body().getData()[0].getId_produk());
-                    Toast.makeText(ScanReturnActivity.this, "berhasil get id produk", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScanReturnActivity.this, R.string.data_produk_berhasil, Toast.LENGTH_SHORT).show();
                     inputAlertDialog();
                 }else{
-                    Toast.makeText(ScanReturnActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScanReturnActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ProdukModel> call, Throwable t) {
-                Toast.makeText(ScanReturnActivity.this, "Gagal Koneksi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ScanReturnActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void inputAlertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialogTheme);
-        builder.setTitle("Masukkan Kode Mitra");
+        builder.setTitle(R.string.masukkan_kode);
         builder.setIcon(R.drawable.ic_cup1);
-        builder.setMessage("Kode Mitra hanya diketahui oleh pihak mitra cupo :)");
+        builder.setMessage(R.string.kode_mitra_hanya);
         builder.setCancelable(true);
 
         // Set an EditText view to get user input
@@ -116,7 +116,7 @@ public class ScanReturnActivity extends AppCompatActivity {
         builder.setView(input);
 
         builder.setPositiveButton(
-                "YA",
+                R.string.ya,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         id_mitra = input.getText().toString();
@@ -132,7 +132,7 @@ public class ScanReturnActivity extends AppCompatActivity {
                 });
 
         builder.setNegativeButton(
-                "BATAL",
+                R.string.batal,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
@@ -162,7 +162,7 @@ public class ScanReturnActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PinjamResponse> call, Throwable t) {
-                Toast.makeText(ScanReturnActivity.this, "Gagal Koneksi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ScanReturnActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -179,7 +179,7 @@ public class ScanReturnActivity extends AppCompatActivity {
                 Log.e("keshav", "id_pinjam --> " +id_pinjam);
                 if(response.isSuccessful()){
                     if(response.body().getStatus().equals("true")){
-                        Toast.makeText(ScanReturnActivity.this, "berhasil melakukan transaksi pengembalian", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ScanReturnActivity.this, "berhasil melakukan transaksi pengembalian", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ScanReturnActivity.this, DetailReturnActivity.class);
                         intent.putExtra("id_produk", id_produk);
                         startActivity(intent);
@@ -190,13 +190,13 @@ public class ScanReturnActivity extends AppCompatActivity {
                         Toast.makeText(ScanReturnActivity.this, eror, Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(ScanReturnActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScanReturnActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                Toast.makeText(ScanReturnActivity.this, "Gagal Koneksi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ScanReturnActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -226,13 +226,13 @@ public class ScanReturnActivity extends AppCompatActivity {
 
     private void showAlertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialogTheme);
-        builder.setTitle("Apakah Anda ingin mengembalikan cup ini?");
+        builder.setTitle(R.string.apakah_anda_ingin_mengembalikan);
         builder.setIcon(R.drawable.ic_cup1);
 //        builder.setMessage(message);
         builder.setCancelable(true);
 
         builder.setPositiveButton(
-                "YA",
+                R.string.ya,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
@@ -243,7 +243,7 @@ public class ScanReturnActivity extends AppCompatActivity {
                 });
 
         builder.setNegativeButton(
-                "BATAL",
+                R.string.batal,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();

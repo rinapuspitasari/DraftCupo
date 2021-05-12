@@ -49,7 +49,7 @@ public class LupaPassActivity extends AppCompatActivity {
     private boolean checkValidation() {
         username = edtUsername.getText().toString();
         if (username.equals("")) {
-            Toast.makeText(this, "Data ini wajib diisi!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.data_wajib_diisi, Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -62,7 +62,7 @@ public class LupaPassActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(LupaPassActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LupaPassActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
                     String id = response.body().getData()[0].getId_cust();
                     String user = response.body().getData()[0].getUsername();
                     Intent i = new Intent(getApplicationContext(), EPassActivity.class);
@@ -71,13 +71,13 @@ public class LupaPassActivity extends AppCompatActivity {
                     startActivity(i);
                     finish();
                 } else {
-                    Toast.makeText(LupaPassActivity.this, "Data tidak ditemukan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LupaPassActivity.this, R.string.data_tidak_ditemukan, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Toast.makeText(LupaPassActivity.this, "Gagal Koneksi Ke Server", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LupaPassActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
     }
