@@ -25,6 +25,7 @@ import com.example.cupodraft.api.model.LoginResponse;
 import com.example.cupodraft.api.model.ProdukModel;
 import com.example.cupodraft.api.model.RegisterResponse;
 import com.example.cupodraft.api.services.ApiInterface;
+import com.example.cupodraft.ui.FailActivity;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -78,13 +79,11 @@ public class ScanActivity extends AppCompatActivity {
         call.enqueue(new Callback<ProdukModel>() {
             @Override
             public void onResponse(Call<ProdukModel> call, Response<ProdukModel> response) {
-                id_produk = response.body().getData()[0].getId_produk();
-                if(response.isSuccessful()){
-//                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ScanActivity.this);
-//                    SharedPreferences.Editor editor = preferences.edit();
-//                    editor.putString("id_produk", response.body().getData()[0].getId_produk());
-//                    editor.apply();
-
+                if(response.body().getData().length == 0){
+                    Toast.makeText(ScanActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
+                    errorDialog();
+                } else{
+                    id_produk = response.body().getData()[0].getId_produk();
                     String status = response.body().getData()[0].getStatus();
                     Toast.makeText(ScanActivity.this, status, Toast.LENGTH_SHORT).show();
                     if(response.body().getData()[0].getStatus().equals("1")) {
@@ -95,9 +94,26 @@ public class ScanActivity extends AppCompatActivity {
                     else{
                         Toast.makeText(ScanActivity.this, R.string.produk_telah_dipinjam, Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(ScanActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
                 }
+//                if(response.isSuccessful()){
+//                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ScanActivity.this);
+//                    SharedPreferences.Editor editor = preferences.edit();
+//                    editor.putString("id_produk", response.body().getData()[0].getId_produk());
+//                    editor.apply();
+//                    id_produk = response.body().getData()[0].getId_produk();
+//                    String status = response.body().getData()[0].getStatus();
+//                    Toast.makeText(ScanActivity.this, status, Toast.LENGTH_SHORT).show();
+//                    if(response.body().getData()[0].getStatus().equals("1")) {
+//                        Log.e("keshav", "id_produk --> " + response.body().getData()[0].getId_produk());
+//                        Toast.makeText(ScanActivity.this, R.string.data_produk_berhasil, Toast.LENGTH_SHORT).show();
+//                        inputAlertDialog();
+//                    }
+//                    else{
+//                        Toast.makeText(ScanActivity.this, R.string.produk_telah_dipinjam, Toast.LENGTH_SHORT).show();
+//                    }
+//                }else{
+//                    Toast.makeText(ScanActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
+//                }
             }
 
             @Override
@@ -225,6 +241,36 @@ public class ScanActivity extends AppCompatActivity {
                         dialog.cancel();
                         doPinjam();
                         finish();
+                    }
+                });
+
+        builder.setNegativeButton(
+                R.string.batal,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        startActivity(new Intent(ScanActivity.this, MenuActivity.class));
+                        finish();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void errorDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialogTheme);
+        builder.setTitle(R.string.gagal_memindai_data);
+        builder.setIcon(R.drawable.ic_cup1);
+        builder.setMessage(R.string.proses_gagal);
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                R.string.coba_lagi,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        recreate();
                     }
                 });
 

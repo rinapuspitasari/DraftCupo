@@ -50,9 +50,9 @@ public class EPassActivity extends AppCompatActivity {
         });
         SharedPreferences preferences = getSharedPreferences("data_login", Context.MODE_PRIVATE);
 //        if(preferences!=null){
-            id_customer = preferences.getString("id_customer","");
+        id_customer = preferences.getString("id_customer","");
 //        } else{
-            id_customer = getIntent().getStringExtra("id");
+        id_customer = getIntent().getStringExtra("id");
 //        }
     }
 

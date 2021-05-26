@@ -109,4 +109,9 @@
     <string name="data_tidak_ditemukan">Data tidak ditemukan</string>
     <string name="hari">hari</string>
     <string name="record_transaksi">Record Peminjaman</string>
+    <string name="BerhasilLogin">Berhasil Login</string>
+    <string name="gagal_memindai_data">Gagal memindai data</string>
+    <string name="proses_gagal">Proses pemindai data gagal</string>
+    <string name="coba_lagi">Coba Lagi</string>
+    <string name="_0_cup_dipinjam"> Cup Dipinjam</string>
 </resources>

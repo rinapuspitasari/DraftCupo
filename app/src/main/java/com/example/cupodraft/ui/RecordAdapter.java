@@ -53,7 +53,7 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ListViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(itemResponse.getData()[position].getStatus().equals("Belum Kembali")){
+                if(itemResponse.getData()[position].getStatus().equals("Being Borrowed")){
                     itemResponse.getData()[position].getTanggal_haruskembali();
                     Intent intent = new Intent(holder.itemView.getContext(), DetailPinjamActivity.class);
                     intent.putExtra("id_produk", itemResponse.getData()[position].getId_produk());

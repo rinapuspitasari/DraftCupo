@@ -1,9 +1,11 @@
 package com.example.cupodraft;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -64,48 +66,45 @@ public class DetailReturnActivity extends AppCompatActivity {
         call.enqueue(new Callback<KembaliResponse>() {
             @Override
             public void onResponse(Call<KembaliResponse> call, Response<KembaliResponse> response) {
-                id_kembali = response.body().getData()[0].getId_kembali();
-                Log.e("keshav", "kembaliResponse 1 --> " + id_kembali);
-                if(response.isSuccessful()){
-                    if(response.body().getData()[0].getIs_acc() != null){
+                if (response.body().getData().length == 0) {
+                    Toast.makeText(DetailReturnActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
+                    errorDialog();
+                } else {
+                    id_kembali = response.body().getData()[0].getId_kembali();
+                    Log.e("keshav", "kembaliResponse 1 --> " + id_kembali);
+                    if (response.body().getData()[0].getIs_acc() != null) {
                         constraintLayout.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         txtWait.setVisibility(View.GONE);
                         String id = response.body().getData()[0].getId_kembali();
                         String tanggalKembali = response.body().getData()[0].getTanggal_kembali();
                         DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-                        DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                         try {
-                            tgl =dateFormat.format(df.parse(tanggalKembali));
+                            tgl = dateFormat.format(df.parse(tanggalKembali));
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
                         String terlambat = response.body().getData()[0].getTerlambat();
                         String denda = response.body().getData()[0].getDenda();
-                        if(!terlambat.equals("0")){
+                        if (!terlambat.equals("0")) {
                             txtDenda.setVisibility(View.VISIBLE);
                             txtTerlambat.setVisibility(View.VISIBLE);
                             inDenda.setVisibility(View.VISIBLE);
                             inTerlambat.setVisibility(View.VISIBLE);
                             txtStatus.setText(R.string.terlambat);
-                            inTerlambat.setText(terlambat+ getString(R.string.hari));
+                            inTerlambat.setText(terlambat + getString(R.string.hari));
                             inDenda.setText("Rp. " + denda);
                         }
                         tglKembali.setText(tgl);
                         idKembali.setText(id);
-                    } else{
+                    } else {
                         constraintLayout.setVisibility(View.INVISIBLE);
                         progressBar.setVisibility(View.VISIBLE);
                         txtWait.setVisibility(View.VISIBLE);
                         getKembali();
 //                        recreate();
                     }
-
-                }else{
-                    Toast.makeText(DetailReturnActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getApplicationContext(), FailActivity.class);
-                    startActivity(i);
-                    finish();
                 }
             }
 
@@ -114,6 +113,37 @@ public class DetailReturnActivity extends AppCompatActivity {
                 Toast.makeText(DetailReturnActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void errorDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialogTheme);
+        builder.setTitle(R.string.gagal_memindai_data);
+        builder.setIcon(R.drawable.ic_cup1);
+        builder.setMessage(R.string.proses_gagal);
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                R.string.coba_lagi,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        startActivity(new Intent(DetailReturnActivity.this, ScanReturnActivity.class));
+                        finish();
+                    }
+                });
+
+        builder.setNegativeButton(
+                R.string.batal,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        startActivity(new Intent(DetailReturnActivity.this, MenuActivity.class));
+                        finish();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     public void handleHome(View view) {

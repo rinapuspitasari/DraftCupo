@@ -43,7 +43,7 @@
     <string name="selamat_menikmati">Enjoy It!</string>
     <string name="kembalikan_cupo">Return the Cupo cup to the café we worked with, and get a clean cup when you\'ll order again.</string>
     <string name="anda_dapat_meminjam">You can borrow up to 2 cups at once, so don\'t worry if you forget to bring your cup. Keep it clean and Green!</string>
-    <string name="order_dan_scan">Order dan Scan</string>
+    <string name="order_dan_scan">Order and Scan</string>
     <string name="lokasi_kafe_terdekat">Nearest Cafe Location</string>
     <string name="kunjungi_kafe">Visit a local café in collaboration with Cupo, or use the café\'s see location menu to find a nearby café.</string>
     <string name="pengembalian">Return</string>
@@ -110,4 +110,9 @@
     <string name="data_tidak_ditemukan">Data not found</string>
     <string name="hari">Days </string>
     <string name="record_transaksi">Record Transactions</string>
+    <string name="BerhasilLogin">Successfull Login</string>
+    <string name="gagal_memindai_data">Failed Load Data</string>
+    <string name="proses_gagal">Process Load Data Failed </string>
+    <string name="coba_lagi">Try Again</string>
+    <string name="_0_cup_dipinjam"> Cup\'s Saved</string>
 </resources>

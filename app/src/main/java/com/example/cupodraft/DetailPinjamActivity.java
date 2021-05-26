@@ -1,10 +1,12 @@
 package com.example.cupodraft;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -62,9 +64,13 @@ public class DetailPinjamActivity extends AppCompatActivity {
         call.enqueue(new Callback<PinjamResponse>() {
             @Override
             public void onResponse(Call<PinjamResponse> call, Response<PinjamResponse> response) {
-                id_pinjam = response.body().getData()[0].getId_pinjam();
+
                 Log.e("keshav", "pinjamResponse 1 --> " + id_pinjam);
-                if(response.isSuccessful()){
+                if(response.body().getData().length == 0){
+                    Toast.makeText(DetailPinjamActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
+                    errorDialog();
+                } else{
+                    id_pinjam = response.body().getData()[0].getId_pinjam();
                     if(response.body().getData()[0].getIs_acc() != null){
                         progressBar.setVisibility(View.GONE);
                         txtWait.setVisibility(View.GONE);
@@ -91,11 +97,6 @@ public class DetailPinjamActivity extends AppCompatActivity {
                         getPinjam();
 //                        Toast.makeText(DetailPinjamActivity.this, "Proses peminjaman sedang diproses", Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(DetailPinjamActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getApplicationContext(), FailActivity.class);
-                    startActivity(i);
-                    finish();
                 }
             }
 
@@ -104,6 +105,37 @@ public class DetailPinjamActivity extends AppCompatActivity {
                 Toast.makeText(DetailPinjamActivity.this, gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void errorDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialogTheme);
+        builder.setTitle(R.string.gagal_memindai_data);
+        builder.setIcon(R.drawable.ic_cup1);
+        builder.setMessage(R.string.proses_gagal);
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                R.string.coba_lagi,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        startActivity(new Intent(DetailPinjamActivity.this, ScanActivity.class));
+                        finish();
+                    }
+                });
+
+        builder.setNegativeButton(
+                R.string.batal,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        startActivity(new Intent(DetailPinjamActivity.this, MenuActivity.class));
+                        finish();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     public void handleHome(View view) {

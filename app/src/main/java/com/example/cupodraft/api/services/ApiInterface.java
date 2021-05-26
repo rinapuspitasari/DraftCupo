@@ -1,5 +1,6 @@
 package com.example.cupodraft.api.services;
 
+import com.example.cupodraft.api.model.DataTotal;
 import com.example.cupodraft.api.model.KembaliResponse;
 import com.example.cupodraft.api.model.LoginResponse;
 import com.example.cupodraft.api.model.LokasiResponse;
@@ -80,4 +81,8 @@ public interface ApiInterface {
     @Headers("X-API-KEY: " + "apikey")
     @GET("api/customer")
     Call<UserResponse> getUser(@Query("id_user")String custId);
+
+    @Headers("X-API-KEY: " + "apikey")
+    @GET("api/peminjaman/getRows")
+    Call<DataTotal> getTotal();
 }

@@ -86,14 +86,14 @@ public class ScanReturnActivity extends AppCompatActivity {
         call.enqueue(new Callback<ProdukModel>() {
             @Override
             public void onResponse(Call<ProdukModel> call, Response<ProdukModel> response) {
-                id_produk = response.body().getData()[0].getId_produk();
-                Log.e("keshav", "produkResponse 1 --> " + id_produk);
-                if(response.isSuccessful()){
+                if(response.body().getData().length == 0){
+                    Toast.makeText(ScanReturnActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
+                    errorDialog();
+                } else{
+                    id_produk = response.body().getData()[0].getId_produk();
                     Log.e("keshav", "id_produk --> " + response.body().getData()[0].getId_produk());
                     Toast.makeText(ScanReturnActivity.this, R.string.data_produk_berhasil, Toast.LENGTH_SHORT).show();
                     inputAlertDialog();
-                }else{
-                    Toast.makeText(ScanReturnActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -102,6 +102,36 @@ public class ScanReturnActivity extends AppCompatActivity {
                 Toast.makeText(ScanReturnActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void errorDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialogTheme);
+        builder.setTitle(R.string.gagal_memindai_data);
+        builder.setIcon(R.drawable.ic_cup1);
+        builder.setMessage(R.string.proses_gagal);
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                R.string.coba_lagi,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        recreate();
+                    }
+                });
+
+        builder.setNegativeButton(
+                R.string.batal,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        startActivity(new Intent(ScanReturnActivity.this, MenuActivity.class));
+                        finish();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void inputAlertDialog(){

@@ -78,8 +78,8 @@ public class RegActivity extends AppCompatActivity {
             emailInput.setError(getString(R.string.emai_harus));
             return false;
         } else if(no_hp.isEmpty()){
-        hpInput.setError(getString(R.string.no_hp_tidak));
-        return false;
+            hpInput.setError(getString(R.string.no_hp_tidak));
+            return false;
         } else if(password.isEmpty()){
             passwordInput.setError(getString(R.string.password_tidak));
             return false;

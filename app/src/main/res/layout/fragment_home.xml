@@ -88,4 +88,16 @@
         app:layout_constraintStart_toStartOf="@+id/btnMaps"
         app:layout_constraintTop_toTopOf="@+id/btnMaps" />
 
+    <TextView
+        android:id="@+id/totalPinjam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/_0_cup_dipinjam"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

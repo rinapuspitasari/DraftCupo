@@ -19,7 +19,6 @@ import com.example.cupodraft.api.helper.ServiceGenerator;
 import com.example.cupodraft.api.model.CommonMethod;
 import com.example.cupodraft.api.model.LoginResponse;
 import com.example.cupodraft.api.services.ApiInterface;
-import com.example.cupodraft.api.services.SharedPref;
 import com.example.cupodraft.ui.EProfileActivity;
 import com.example.cupodraft.ui.LupaPassActivity;
 
