@@ -18,7 +18,7 @@
             android:title="@string/panduan" />
         <item
             android:id="@+id/nav_edit"
-            android:icon="@drawable/ic_help_black_18dp"
+            android:icon="@drawable/ic_account_circle_black_24dp"
             android:title="@string/akun_saya" />
     </group>
 </menu>
