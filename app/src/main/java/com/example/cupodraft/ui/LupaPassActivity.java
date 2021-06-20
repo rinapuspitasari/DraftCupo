@@ -65,7 +65,7 @@ public class LupaPassActivity extends AppCompatActivity {
 //                    Toast.makeText(LupaPassActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
                     String id = response.body().getData()[0].getId_cust();
                     String user = response.body().getData()[0].getUsername();
-                    Intent i = new Intent(getApplicationContext(), EPassActivity.class);
+                    Intent i = new Intent(getApplicationContext(), ForgotActivity.class);
                     i.putExtra("id", id);
                     i.putExtra("username", user);
                     startActivity(i);

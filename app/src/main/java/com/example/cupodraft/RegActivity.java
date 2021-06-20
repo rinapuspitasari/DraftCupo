@@ -14,6 +14,7 @@ import com.example.cupodraft.api.helper.ServiceGenerator;
 import com.example.cupodraft.api.model.CommonMethod;
 import com.example.cupodraft.api.model.RegisterResponse;
 import com.example.cupodraft.api.services.ApiInterface;
+import com.example.cupodraft.ui.VerifAccActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -103,8 +104,9 @@ public class RegActivity extends AppCompatActivity {
                     Toast.makeText(RegActivity.this, R.string.register_berhasil, Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(RegActivity.this, response.body().getStatus(), Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(RegActivity.this, response.body().getId(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(RegActivity.this, VerifAccActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(RegActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
                 }

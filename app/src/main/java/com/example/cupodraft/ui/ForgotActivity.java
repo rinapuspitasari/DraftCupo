@@ -2,9 +2,7 @@ package com.example.cupodraft.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.Toast;
 
 import com.example.cupodraft.LoginActivity;
 import com.example.cupodraft.R;
-import com.example.cupodraft.RegActivity;
 import com.example.cupodraft.api.helper.ServiceGenerator;
 import com.example.cupodraft.api.model.CommonMethod;
 import com.example.cupodraft.api.model.RegisterResponse;
@@ -24,40 +21,33 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EPassActivity extends AppCompatActivity {
-    EditText pasLama, pasBaru;
-    String password, passwordBaru;
+public class ForgotActivity extends AppCompatActivity {
+    EditText pasBaru;
+    String passwordBaru;
     Button btn;
     String id_customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_e_pass);
-        pasLama = findViewById(R.id.edtPas);
+        setContentView(R.layout.activity_forgot);
         pasBaru = findViewById(R.id.edtPasBaru);
         btn = findViewById(R.id.btnChangePas);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkValidation()) {
-                    if (CommonMethod.isNetworkAvailable(EPassActivity.this))
+                    if (CommonMethod.isNetworkAvailable(ForgotActivity.this))
                         changePass();
                     else
-                        CommonMethod.showAlert("Internet Connectivity Failure", EPassActivity.this);
+                        CommonMethod.showAlert("Internet Connectivity Failure", ForgotActivity.this);
                 }
             }
         });
-        SharedPreferences preferences = getSharedPreferences("data_login", Context.MODE_PRIVATE);
-//        if(preferences!=null){
-        id_customer = preferences.getString("id_customer","");
-//        } else{
-//        id_customer = getIntent().getStringExtra("id");
-//        }
+        id_customer = getIntent().getStringExtra("id");
     }
 
     private boolean checkValidation() {
-        password = pasLama.getText().toString();
         passwordBaru = pasBaru.getText().toString();
         if (passwordBaru.trim().length() < 4) {
             Toast.makeText(this, R.string.minimal_4, Toast.LENGTH_SHORT).show();
@@ -75,17 +65,17 @@ public class EPassActivity extends AppCompatActivity {
                 RegisterResponse registerResponse = response.body();
                 Log.e("keshav", "registerResponse 1 --> " + registerResponse);
                 if (response.isSuccessful()) {
-                    Toast.makeText(EPassActivity.this, R.string.update_pass_berhasil, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotActivity.this, R.string.update_pass_berhasil, Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(i); finish();
                 } else {
-                    Toast.makeText(EPassActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                Toast.makeText(EPassActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ForgotActivity.this, R.string.gagal_koneksi, Toast.LENGTH_SHORT).show();
             }
         });
     }
