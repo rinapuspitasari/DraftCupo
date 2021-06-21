@@ -115,4 +115,10 @@
     <string name="proses_gagal">Process Load Data Failed </string>
     <string name="coba_lagi">Try Again</string>
     <string name="_0_cup_dipinjam"> Cup\'s Saved</string>
+    <string name="peminjaman_sudah_habis">Sorry, we failed to process your loan transaction. Your borrowing limit has run out.</string>
+    <string name="kembalikan">Return Cup</string>
+    <string name="selamat">Congratulation\'s! Your Account Created Successfully</string>
+    <string name="informasi_selengkpanya">To be able to log in, activate your account first with the Cupo Admin. By contacting Admin Cupo via the button below for more information.</string>
+    <string name="chat_admin_cupo">CHAT ADMIN CUPO</string>
+    <string name="halo_admin">Hallo Admin, I want to verify Cupo Account, How do the procedure??</string>
 </resources>

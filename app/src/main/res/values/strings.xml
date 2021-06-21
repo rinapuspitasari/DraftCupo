@@ -114,4 +114,10 @@
     <string name="proses_gagal">Proses pemindai data gagal</string>
     <string name="coba_lagi">Coba Lagi</string>
     <string name="_0_cup_dipinjam"> Cup Dipinjam</string>
+    <string name="peminjaman_sudah_habis">Maaf transaksi peminjamanmu gagal kami proses, limit peminjaman anda sudah habis</string>
+    <string name="kembalikan">kembalikan cup</string>
+    <string name="selamat">Selamat! Akun Anda Berhasil Dibuat</string>
+    <string name="informasi_selengkpanya">Untuk dapat melakukan login, lakukan aktivasi akun terlebih dahulu kepada Admin Cupo. Dengan menghubungi Admin Cupo melalui tombol dibawah untuk informasi selengkapnya.</string>
+    <string name="chat_admin_cupo">CHAT ADMIN CUPO</string>
+    <string name="halo_admin">Hallo Admin, Saya ingin verifikasi Akun Cupo Nih, Gimana Ya Caranya?</string>
 </resources>

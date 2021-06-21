@@ -44,7 +44,7 @@ public class ScanActivity extends AppCompatActivity {
     private ImageView ivBgContent;
     private CodeScanner mCodeScanner;
     private CodeScannerView scannerView;
-    String nama_produk, id_produk, id_mitra, id_customer;
+    String nama_produk, id_produk, id_mitra, id_customer, limit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,9 @@ public class ScanActivity extends AppCompatActivity {
         checkCameraPermission();
         SharedPreferences preferences = getSharedPreferences("data_login", Context.MODE_PRIVATE);
         id_customer = preferences.getString("id_customer","");
+        limit = preferences.getString("limit","");
         Log.e("keshav", "id_user --> " +id_customer);
+        Log.e("keshav", "limit --> " +limit);
     }
 
     private void getId(String nama_produk) {
@@ -79,20 +81,23 @@ public class ScanActivity extends AppCompatActivity {
         call.enqueue(new Callback<ProdukModel>() {
             @Override
             public void onResponse(Call<ProdukModel> call, Response<ProdukModel> response) {
-                if(response.body().getData().length == 0){
-                    Toast.makeText(ScanActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
-                    errorDialog();
-                } else{
-                    id_produk = response.body().getData()[0].getId_produk();
-                    String status = response.body().getData()[0].getStatus();
-                    Toast.makeText(ScanActivity.this, status, Toast.LENGTH_SHORT).show();
-                    if(response.body().getData()[0].getStatus().equals("1")) {
-                        Log.e("keshav", "id_produk --> " + response.body().getData()[0].getId_produk());
-                        Toast.makeText(ScanActivity.this, R.string.data_produk_berhasil, Toast.LENGTH_SHORT).show();
-                        inputAlertDialog();
-                    }
-                    else{
-                        Toast.makeText(ScanActivity.this, R.string.produk_telah_dipinjam, Toast.LENGTH_SHORT).show();
+                if(limit.matches("0")){
+                    limitDialog();
+                } else {
+                    if (response.body().getData().length == 0) {
+                        Toast.makeText(ScanActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
+                        errorDialog();
+                    } else {
+                        id_produk = response.body().getData()[0].getId_produk();
+                        String status = response.body().getData()[0].getStatus();
+                        Toast.makeText(ScanActivity.this, status, Toast.LENGTH_SHORT).show();
+                        if (response.body().getData()[0].getStatus().equals("1")) {
+                            Log.e("keshav", "id_produk --> " + response.body().getData()[0].getId_produk());
+                            Toast.makeText(ScanActivity.this, R.string.data_produk_berhasil, Toast.LENGTH_SHORT).show();
+                            inputAlertDialog();
+                        } else {
+                            Toast.makeText(ScanActivity.this, R.string.produk_telah_dipinjam, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
 //                if(response.isSuccessful()){
@@ -193,7 +198,10 @@ public class ScanActivity extends AppCompatActivity {
                         Toast.makeText(ScanActivity.this, eror, Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(ScanActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
+                    String eror = response.body().getMessage();
+                    Toast.makeText(ScanActivity.this, eror, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ScanActivity.this, R.string.gagal, Toast.LENGTH_SHORT).show();
+//                    limitDialog();
                 }
             }
 
@@ -257,6 +265,38 @@ public class ScanActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    private void limitDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialogTheme);
+        builder.setTitle("Oops..");
+        builder.setIcon(R.drawable.ic_cup1);
+        builder.setMessage(R.string.peminjaman_sudah_habis);
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                R.string.kembalikan,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        startActivity(new Intent(ScanActivity.this, ScanReturnActivity.class));
+                        finish();
+                    }
+                });
+
+        builder.setNegativeButton(
+                R.string.batal,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        startActivity(new Intent(ScanActivity.this, MenuActivity.class));
+                        finish();
+                    }
+                });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 
     private void errorDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialogTheme);

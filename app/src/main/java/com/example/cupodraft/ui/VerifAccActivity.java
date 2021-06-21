@@ -14,7 +14,7 @@ import com.example.cupodraft.ScanReturnActivity;
 
 public class VerifAccActivity extends AppCompatActivity {
     String number = "+6282228019562";
-    String message ="Hallo Admin, Saya ingin verifikasi Akun Cupo Nih, Gimana Ya Caranya?";
+    String message = getString(R.string.halo_admin);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
