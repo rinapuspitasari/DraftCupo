@@ -56,10 +56,12 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ListViewHo
                 if(itemResponse.getData()[position].getStatus().equals("Being Borrowed")){
                     itemResponse.getData()[position].getTanggal_haruskembali();
                     Intent intent = new Intent(holder.itemView.getContext(), DetailPinjamActivity.class);
+                    intent.putExtra("id_pinjam", itemResponse.getData()[position].getId_pinjam());
                     intent.putExtra("id_produk", itemResponse.getData()[position].getId_produk());
                     holder.itemView.getContext().startActivity(intent);
                 } else{
                     Intent intent = new Intent(holder.itemView.getContext(), DetailReturnActivity.class);
+                    intent.putExtra("id_pinjam", itemResponse.getData()[position].getId_pinjam());
                     intent.putExtra("id_produk", itemResponse.getData()[position].getId_produk());
                     holder.itemView.getContext().startActivity(intent);
                 }

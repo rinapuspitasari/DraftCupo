@@ -212,6 +212,7 @@ public class ScanReturnActivity extends AppCompatActivity {
 //                        Toast.makeText(ScanReturnActivity.this, "berhasil melakukan transaksi pengembalian", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ScanReturnActivity.this, DetailReturnActivity.class);
                         intent.putExtra("id_produk", id_produk);
+                        intent.putExtra("id_pinjam", id_pinjam);
                         startActivity(intent);
 //                        startActivity(new Intent(ScanReturnActivity.this, DetailReturnActivity.class));
                     } else{

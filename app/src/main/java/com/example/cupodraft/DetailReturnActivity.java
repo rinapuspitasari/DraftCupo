@@ -31,7 +31,7 @@ import retrofit2.Response;
 
 public class DetailReturnActivity extends AppCompatActivity {
     TextView idKembali, tglKembali, txtStatus, txtDenda, txtTerlambat, inDenda, inTerlambat, txtWait;
-    String id_prod, id_cust, id_kembali, tgl;
+    String id_prod, id_cust, id_kembali, id_pinjam, tgl;
     ProgressBar progressBar;
     ConstraintLayout constraintLayout;
 
@@ -55,14 +55,16 @@ public class DetailReturnActivity extends AppCompatActivity {
 //        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 //        id_produk = pref.getString("id_produk","");
         id_prod = getIntent().getStringExtra("id_produk");
+        id_pinjam = getIntent().getStringExtra("id_pinjam");
         Log.d("recyctest", "Test customer: "+id_cust);
         Log.d("recyctest", "Test produk: "+id_prod);
+        Log.d("recyctest", "Test pinjam: "+id_pinjam);
         getKembali();
     }
 
     private void getKembali() {
         ApiInterface service = ServiceGenerator.createService(ApiInterface.class);
-        Call<KembaliResponse> call = service.getPengembalian(id_cust, id_prod);
+        Call<KembaliResponse> call = service.getPengembalian(id_cust, id_prod, id_pinjam);
         call.enqueue(new Callback<KembaliResponse>() {
             @Override
             public void onResponse(Call<KembaliResponse> call, Response<KembaliResponse> response) {

@@ -85,8 +85,8 @@ public class DetailPinjamActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        tglPinjam.setText(tglBaru);
-                        tglKembali.setText(tgl);
+                        tglPinjam.setText(tgl);
+                        tglKembali.setText(tglBaru);
                         idPinjam.setText(id_pinjam);
                         //Toast.makeText(DetailPinjamActivity.this, "Silahkan dikembalikan sebelum tanggal "+tanggal+ " yaa :)", Toast.LENGTH_SHORT).show();
                     } else{

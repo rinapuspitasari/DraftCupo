@@ -48,7 +48,7 @@ public interface ApiInterface {
     @Headers("X-API-KEY: " + "apikey")
     @FormUrlEncoded
     @POST("api/pengembalian/getDetail")
-    Call<KembaliResponse> getPengembalian(@Field("id_user") String id_user, @Field("id_produk") String id_produk);
+    Call<KembaliResponse> getPengembalian(@Field("id_user") String id_user, @Field("id_produk") String id_produk, @Field("id_pinjam") String id_pinjam);
 
     @Headers("X-API-KEY: " + "apikey")
     @FormUrlEncoded
