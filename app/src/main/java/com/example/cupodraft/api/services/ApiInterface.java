@@ -80,7 +80,7 @@ public interface ApiInterface {
 
     @Headers("X-API-KEY: " + "apikey")
     @GET("api/customer")
-    Call<UserResponse> getUser(@Query("id_user")String custId);
+    Call<UserResponse> getUser(@Query("id_cust")String custId);
 
     @Headers("X-API-KEY: " + "apikey")
     @GET("api/peminjaman/getRows")

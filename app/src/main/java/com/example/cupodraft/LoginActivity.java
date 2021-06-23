@@ -56,6 +56,11 @@ public class LoginActivity extends AppCompatActivity {
 //            startActivity(new Intent(LoginActivity.this, MainActivity.class)
 //                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
 //            finish();
+//        } else{
+//            Intent intent = new Intent(this,LoginActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            finish();
+//            startActivity(intent);
 //        }
     }
 
@@ -84,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
     private void saveCredentials() {
         SharedPreferences handler = this.getSharedPreferences("data_login", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = handler.edit();
+        editor.putBoolean("Registered", true);
         editor.putString("username", this.edtUser.getText().toString());
         editor.putString("password", this.edtPassword.getText().toString());
         editor.putString("id_customer", this.id_customer);
